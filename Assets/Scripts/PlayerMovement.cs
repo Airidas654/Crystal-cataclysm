@@ -184,7 +184,7 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
                     //jumpTimeCounter = jumpTime;
 
-                    SoundManager.Instance.PlaySoundOneShot(jump);
+                    //SoundManager.Instance.PlaySoundOneShot(jump);
                     isJumping = true;
 
                     jumpCooldown = jumpCooldownTimeInSeconds;
