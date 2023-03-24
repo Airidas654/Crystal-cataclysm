@@ -47,9 +47,11 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
 
 
+    public static GameObject playerObject;
     // Start is called before the first frame update
     void Start()
     {
+        playerObject = gameObject;
         rb = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
@@ -125,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-
+            SceneManager.Instance.StartNextScene(Vector2.right,"");
         }
 
         if (flipped > 0)
