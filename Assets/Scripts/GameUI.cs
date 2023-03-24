@@ -23,7 +23,7 @@ public class GameUI : MonoBehaviour
 
     enum animationType
     {
-        messageOpen,
+        messageOpen, 
         messageClose
     }
 
