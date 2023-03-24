@@ -123,6 +123,11 @@ public class PlayerMovement : MonoBehaviour
         float verticalVal = Input.GetAxisRaw("Vertical");
         float horizontalVal = Input.GetAxisRaw("Horizontal");
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+
+        }
+
         if (flipped > 0)
         {
             flipped = Mathf.Max(0, flipped - Time.deltaTime);
