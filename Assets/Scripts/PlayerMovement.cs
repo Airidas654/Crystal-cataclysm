@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 colliderSize = new Vector3(mainCollider.size.x * 0.9f * Mathf.Abs(transform.localScale.x), 0.1f, 1);
         Vector3 groundCheckPos = colliderBounds.min + new Vector3(colliderBounds.size.x * 0.5f, colliderSize.y * 0.45f, 0);
         // Check if player is grounded
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheckPos, colliderSize, 0, 1152);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheckPos, colliderSize, 0, 64);
 
         //Check if any of the overlapping colliders are not player collider, if so, set isGrounded to true
         isGrounded = false;

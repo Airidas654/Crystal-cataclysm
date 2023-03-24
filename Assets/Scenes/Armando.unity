@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1495762568}
   - component: {fileID: 1495762567}
   - component: {fileID: 1495762566}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,18 +372,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  horizontalDrag: 1
-  jumpStrength: 8
-  moveSpeed: 2
+  horizontalDrag: 50
+  jumpStrength: 21
+  moveSpeed: 7
   gravityScale: 5
   jump: {fileID: 0}
   jumpCooldownTimeInSeconds: 0.1
-  CoyoteTimeInSeconds: 0.1
+  CoyoteTimeInSeconds: 0.09
   JumpBufferInSeconds: 0.1
   enableBetterJump: 1
-  additionalLowJumpGravMultiplier: 0
-  additionalFallGravMultiplier: 0
-  maxVerticalSpeed: 0
+  additionalLowJumpGravMultiplier: 10
+  additionalFallGravMultiplier: 2
+  maxVerticalSpeed: 30
   canMove: 1
   grabbing: 0
 --- !u!212 &1819924441
