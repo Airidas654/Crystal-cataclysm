@@ -106,7 +106,7 @@ MonoBehaviour:
   gravityScale: 5
   jump: {fileID: 0}
   jumpCooldownTimeInSeconds: 0.1
-  climbSpeed: 7
+  climbSpeed: 5
   CoyoteTimeInSeconds: 0.09
   JumpBufferInSeconds: 0.1
   enableBetterJump: 1
