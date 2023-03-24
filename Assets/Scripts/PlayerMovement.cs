@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip jump;
 
     [SerializeField] float jumpCooldownTimeInSeconds = 0.1f;
+    [SerializeField] float climbSpeed = 5f;
 
     [Header("Movement assist settings")]
     [SerializeField] float CoyoteTimeInSeconds = 0.1f;
@@ -64,6 +65,42 @@ public class PlayerMovement : MonoBehaviour
         flipped = duration;
     }
 
+    bool touchingLadder = false;
+    bool onLadder = false;
+
+    List<GameObject> touchedLadders = new List<GameObject>();
+    float maxLadderHeight = 0;
+    void RecalculateMaxLadderHeight()
+    {
+        maxLadderHeight = int.MinValue;
+        foreach(GameObject obj in touchedLadders)
+        {
+            maxLadderHeight = Mathf.Max(maxLadderHeight, obj.transform.position.y+obj.transform.lossyScale.y/2);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder"))
+        {
+            touchingLadder = true;
+            touchedLadders.Add(collision.gameObject);
+            RecalculateMaxLadderHeight();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder"))
+        {
+            touchedLadders.Remove(collision.gameObject);
+            RecalculateMaxLadderHeight();
+
+            if (touchedLadders.Count == 0)
+            {
+                touchingLadder = false;
+            }
+        }
+    }
 
     private void OnDrawGizmosSelected()
     {
@@ -125,6 +162,35 @@ public class PlayerMovement : MonoBehaviour
         float verticalVal = Input.GetAxisRaw("Vertical");
         float horizontalVal = Input.GetAxisRaw("Horizontal");
 
+        float jumpVal = Input.GetAxisRaw("Jump");
+
+        if (verticalVal != 0 && touchingLadder)
+        {
+            onLadder = true;
+        }
+        if (onLadder && ((isGrounded && verticalVal < 0) || !touchingLadder))
+        {
+            onLadder = false;
+        }
+
+        if (onLadder)
+        {
+            rb.gravityScale = 0;
+
+            if (playerObject.transform.position.y >= maxLadderHeight && Input.GetAxis("Vertical") > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, Input.GetAxis("Vertical") * climbSpeed);
+            }
+        }
+        else
+        {
+            rb.gravityScale = gravityScale;
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             SceneManager.Instance.StartNextScene(Vector2.right,"Armando2");
@@ -135,8 +201,6 @@ public class PlayerMovement : MonoBehaviour
             flipped = Mathf.Max(0, flipped - Time.deltaTime);
             horizontalVal *= -1;
         }
-
-        grabbing = verticalVal < 0;
 
         //atsakingas uz vaiksciojima
         if (canMove && stunned == 0)
@@ -173,13 +237,13 @@ public class PlayerMovement : MonoBehaviour
 
             if (jumpCooldown <= 0)
             {
-                if (verticalVal > 0 && lastVerticalVal == 0)
+                if (jumpVal > 0 && lastVerticalVal == 0)
                 {
                     jumpBufferTime = JumpBufferInSeconds;
                 }
 
                 //atsakingas uz sokinejima
-                if (((verticalVal > 0 && lastVerticalVal == 0) || jumpBufferTime > 0) && (isGrounded == true || coyoteTime > 0))
+                if (((jumpVal > 0 && lastVerticalVal == 0) || jumpBufferTime > 0) && (isGrounded == true || coyoteTime > 0))
                 {
                     rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
                     //jumpTimeCounter = jumpTime;
@@ -191,14 +255,14 @@ public class PlayerMovement : MonoBehaviour
                     jumpBufferTime = 0;
                 }
             }
-            if (verticalVal <= 0)
+            if (jumpVal <= 0)
             {
                 //Debug.Log("pavyko");
                 isJumping = false;
             }
         }
 
-        if (enableBetterJump)
+        if (enableBetterJump && !onLadder)
         {
             if (rb.velocity.y < 0)
             {
@@ -210,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
             }
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Sign(rb.velocity.y) * Mathf.Min(Mathf.Abs(rb.velocity.y), maxVerticalSpeed));
         }
-        lastVerticalVal = verticalVal;
+        lastVerticalVal = jumpVal;
 
         //atsakingas uz animacija
         if (animator != null)
