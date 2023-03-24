@@ -51,6 +51,7 @@ public class GameUI : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -79,7 +80,7 @@ public class GameUI : MonoBehaviour
             Color col = playerTextText.color;
             playerTextText.color = new Color(col.r, col.g, col.b, val);
         }
-        if (playerTextAnimTime > 0)
+        if (playerTextAnimTime > 0 && PlayerMovement.playerObject != null)
         {
             playerTextRect.position = Camera.main.WorldToScreenPoint(PlayerMovement.playerObject.transform.position + new Vector3(playerTextOffset.x, playerTextOffset.y));
         }

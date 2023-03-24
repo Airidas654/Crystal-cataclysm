@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Armando2.unity
+    guid: 5b79238469fed144f8cc7ae1fe77b262
+  - enabled: 1
+    path: Assets/Scenes/Armando.unity
+    guid: 388eb00becb813147bef8b9d72924a03
   m_configObjects: {}
