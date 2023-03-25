@@ -68,7 +68,8 @@ public class GameUI : MonoBehaviour
         messageText.text = text;
         messageUI.gameObject.SetActive(true);
         Time.timeScale = 0;
-        PlayerMovement.playerObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        PlayerMovement.playerObject.GetComponent<PlayerMovement>().canMove = false;
+        //PlayerMovement.playerObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         InDialog = true;
         functionToCall = InteractEvent;
         if (blackBackgroundOn)
@@ -201,6 +202,7 @@ public class GameUI : MonoBehaviour
                 messageUI.gameObject.SetActive(false);
                 InDialog = false;
                 Time.timeScale = 1;
+                PlayerMovement.playerObject.GetComponent<PlayerMovement>().canMove = true;
                 if (blackBackgroundOn)
                 {
                     BlackScreen.gameObject.SetActive(false);
