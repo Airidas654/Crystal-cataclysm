@@ -49,6 +49,7 @@ public class SceneManager : MonoBehaviour
             time = 0;
             Camera.main.transform.position = new Vector3(-newCameraPos.x,-newCameraPos.y, Camera.main.transform.position.z);
         }
+        
     }
 
     public void StartNextScene()
@@ -64,6 +65,7 @@ public class SceneManager : MonoBehaviour
             newSceneName = allScenes[currentLevel].sceneName;
             BlankObject.gameObject.SetActive(true);
             currentLevel++;
+            PlayerMovement.playerObject.GetComponent<PlayerMovement>().canMove = false;
         }
 
     }
@@ -83,6 +85,7 @@ public class SceneManager : MonoBehaviour
             {
                 transitioning = false;
                 UnityEngine.SceneManagement.SceneManager.LoadScene(newSceneName);
+                GameManager.Instance.ApplyAllOldUpgrades();
             }
         }
         else if (transitioning2)
@@ -97,6 +100,7 @@ public class SceneManager : MonoBehaviour
                 transitioning2 = false;
                 loadingScene = false;
                 BlankObject.gameObject.SetActive(false);
+                PlayerMovement.playerObject.GetComponent<PlayerMovement>().canMove = true;
             }
         }
     }

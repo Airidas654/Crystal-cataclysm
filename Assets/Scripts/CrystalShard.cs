@@ -10,7 +10,9 @@ public class CrystalShard : MonoBehaviour
         {
             if (GameManager.Instance.currentUpgrade < GameManager.Instance.UpgradeFunctions.Count)
             {
-                GameManager.Instance.Invoke(GameManager.Instance.UpgradeFunctions[GameManager.Instance.currentUpgrade], 0);
+                GameUI.Instance.StartMessageAnim(GameManager.Instance.UpgradeFunctions[GameManager.Instance.currentUpgrade].Message, GameManager.Instance.UpgradeFunctions[GameManager.Instance.currentUpgrade].FunctionToCall);
+                
+               
                 GameManager.Instance.currentUpgrade++;
             }
             GameObject.Find("ExitDoor").GetComponent<ExitDoor>().OpenDoor();

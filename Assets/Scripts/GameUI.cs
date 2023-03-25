@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class GameUI : MonoBehaviour
 {
     public static GameUI Instance = null;
+    public bool InDialog { get; private set;}
     [SerializeField] RectTransform messageUI;
     [SerializeField] RectTransform playerTextRect;
     TMPro.TextMeshProUGUI playerTextText;
@@ -21,18 +23,27 @@ public class GameUI : MonoBehaviour
 
     [SerializeField]AnimationCurve messageAnimCurve;
 
+    string functionToCall;
+
     enum animationType
     {
         messageOpen, 
         messageClose
     }
 
-    public void StartMessageAnim(string text)
+    public void StartMessageAnim(string text, string InteractEvent = "")
     {
+        if (GameManager.Instance.playerDead)
+        {
+            return;
+        }
         messageAnimTime = 1;
         currentAnimation = animationType.messageOpen;
         messageText.text = text;
         messageUI.gameObject.SetActive(true);
+        Time.timeScale = 0;
+        InDialog = true;
+        functionToCall = InteractEvent;
     }
 
     public void ShowPlayerText(string text)
@@ -66,7 +77,7 @@ public class GameUI : MonoBehaviour
     {
         if (showPlayerText && playerTextAnimTime < 1)
         {
-            playerTextAnimTime += Time.deltaTime / playerTextTime;
+            playerTextAnimTime += Time.unscaledDeltaTime / playerTextTime;
             playerTextAnimTime = Mathf.Max(0, Mathf.Min(1, playerTextAnimTime));
             float val = messageAnimCurve.Evaluate(playerTextAnimTime);
             Color col = playerTextText.color;
@@ -74,7 +85,7 @@ public class GameUI : MonoBehaviour
         }
         if (!showPlayerText && playerTextAnimTime > 0)
         {
-            playerTextAnimTime -= Time.deltaTime / playerTextTime;
+            playerTextAnimTime -= Time.unscaledDeltaTime / playerTextTime;
             playerTextAnimTime = Mathf.Max(0, Mathf.Min(1, playerTextAnimTime));
             float val = messageAnimCurve.Evaluate(playerTextAnimTime);
             Color col = playerTextText.color;
@@ -88,7 +99,7 @@ public class GameUI : MonoBehaviour
 
         if (messageAnimTime > 0 && currentAnimation == animationType.messageOpen)
         {
-            messageAnimTime -= Time.deltaTime / messageUITime;
+            messageAnimTime -= Time.unscaledDeltaTime / messageUITime;
             messageAnimTime = Mathf.Max(0, Mathf.Min(1, messageAnimTime));
             float val = messageAnimCurve.Evaluate(1 - messageAnimTime);
             messageUI.localPosition = new Vector2(0,Mathf.Lerp(-messageUI.sizeDelta.y / 2 - 360, messageUI.sizeDelta.y / 2 - 360, val));
@@ -99,13 +110,15 @@ public class GameUI : MonoBehaviour
         }
         if (messageAnimTime > 0 && currentAnimation == animationType.messageClose)
         {
-            messageAnimTime -= Time.deltaTime / messageUITime;
+            messageAnimTime -= Time.unscaledDeltaTime / messageUITime;
             messageAnimTime = Mathf.Max(0, Mathf.Min(1, messageAnimTime));
             float val = messageAnimCurve.Evaluate(1 - messageAnimTime);
             messageUI.localPosition = new Vector2(0, Mathf.Lerp(messageUI.sizeDelta.y / 2 - 360, -messageUI.sizeDelta.y / 2 - 360, val));
             if (messageAnimTime <= 0)
             {
                 messageUI.gameObject.SetActive(false);
+                InDialog = false;
+                Time.timeScale = 1;
             }
         }
         if (Input.GetKey(KeyCode.E) && waitingForInput)
@@ -113,6 +126,10 @@ public class GameUI : MonoBehaviour
             waitingForInput = false;
             currentAnimation = animationType.messageClose;
             messageAnimTime = 1;
+            if (functionToCall != "")
+            {
+                AllDowngrades.Instance.Invoke(functionToCall, 0);
+            }
         }
     }
 }
