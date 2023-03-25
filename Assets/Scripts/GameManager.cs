@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [NonSerialized] public bool playerDead;
     private bool transitionStage;
     private float time;
+    [System.NonSerialized] public bool CanReset = true;
 
     private void Awake()
     {
@@ -41,6 +42,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.R) && CanReset && !playerDead) {
+            PlayerDeath();
+        }
         if (playerDead)
         {
             if (!transitionStage)
