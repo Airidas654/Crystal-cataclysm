@@ -118,6 +118,7 @@ MonoBehaviour:
   canMove: 1
   icePagreitis: 10
   iceDrag: 2
+  onLadder: 0
   flipped: 0
   onIce: 0
   grabbing: 0
