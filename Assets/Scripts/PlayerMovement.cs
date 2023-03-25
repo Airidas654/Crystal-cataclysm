@@ -338,7 +338,7 @@ public class PlayerMovement : MonoBehaviour
         //atsakingas uz animacija
         if (animator != null)
         {
-            animator.SetBool("Moving", Mathf.Abs(rb.velocity.x) > Mathf.Epsilon || Mathf.Abs(rb.velocity.y) > Mathf.Epsilon);
+            animator.SetBool("Moving", Mathf.Abs(horizontalVal) > 0.1 || (Mathf.Abs(verticalVal) > 0.1 && onLadder));
             animator.SetBool("Grounded", isGrounded);
             animator.SetBool("On Ladders", onLadder);
         }
