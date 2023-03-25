@@ -13,6 +13,7 @@ public class CrystalShard : MonoBehaviour
                 GameManager.Instance.Invoke(GameManager.Instance.UpgradeFunctions[GameManager.Instance.currentUpgrade], 0);
                 GameManager.Instance.currentUpgrade++;
             }
+            GameObject.Find("ExitDoor").GetComponent<ExitDoor>().OpenDoor();
             Destroy(gameObject);
         }
     }

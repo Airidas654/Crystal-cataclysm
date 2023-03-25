@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b90ee94443ec1c4ba5504ab22d8dd0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  closedSprite: {fileID: 21300000, guid: b95a1e76409c63740a61d4386e742d20, type: 3}
+  openSprite: {fileID: 21300000, guid: 4b2c38f22b3ae2e43977169f76671895, type: 3}
 --- !u!61 &5498188350425706326
 BoxCollider2D:
   m_ObjectHideFlags: 0

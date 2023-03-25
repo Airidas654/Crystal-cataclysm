@@ -4,8 +4,33 @@ using UnityEngine;
 
 public class ExitDoor : Interactable
 {
+    bool closed;
+    [SerializeField] Sprite closedSprite;
+    [SerializeField] Sprite openSprite;
+    private void Awake()
+    {
+        if (GameObject.Find("Shard"))
+        {
+            closed = true;
+            GetComponent<SpriteRenderer>().sprite = closedSprite;
+        }
+        else
+        {
+            closed = false;
+        }
+    }
+
+    public void OpenDoor()
+    {
+        closed = false;
+        GetComponent<SpriteRenderer>().sprite = openSprite;
+    }
+
     public override void Interact()
     {
-        SceneManager.Instance.StartNextScene();
+        if (!closed)
+        {
+            SceneManager.Instance.StartNextScene();
+        }
     }
 }
