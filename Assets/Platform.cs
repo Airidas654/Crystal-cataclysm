@@ -14,7 +14,7 @@ public class Platform : MonoBehaviour
         platformCollider = gameObject.GetComponent<BoxCollider2D>();
     }
 
-    bool collide = false;
+    bool collide = true;
     // Update is called once per frame
     void Update()
     {
