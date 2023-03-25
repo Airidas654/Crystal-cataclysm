@@ -47,7 +47,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24529aee06fe6bb459a4391c40a605cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allScenes: []
+  allScenes:
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 2
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 3
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 4
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 5
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 6
   BlankObject: {fileID: 0}
   SpeedCurve:
     serializedVersion: 2
