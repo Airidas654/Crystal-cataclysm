@@ -40,10 +40,13 @@ public class GameUI : MonoBehaviour
 
     public void StartGame()
     {
-        mainUi.SetActive(false);
-        startPressed = true;
-        time = 0;
-        BlackScreen.gameObject.SetActive(true);
+        if (!startPressed)
+        {
+            mainUi.SetActive(false);
+            startPressed = true;
+            time = 0;
+            BlackScreen.gameObject.SetActive(true);
+        }
     }
 
 
@@ -114,6 +117,7 @@ public class GameUI : MonoBehaviour
             if (time >= TransitionSpeed)
             {
                 startPressed = false;
+                UnityEngine.SceneManagement.SceneManager.LoadScene("1");
             }
         }
 
@@ -172,6 +176,7 @@ public class GameUI : MonoBehaviour
                 if (blackBackgroundOn)
                 {
                     BlackScreen.gameObject.SetActive(false);
+
                 }
             }
         }
@@ -185,9 +190,6 @@ public class GameUI : MonoBehaviour
                 AllDowngrades.Instance.Invoke(functionToCall, 0);
             }
         }
-        else if (Input.GetKey(KeyCode.E) && inStart && !startPressed)
-        {
-            StartGame();
-        }
+        
     }
 }
