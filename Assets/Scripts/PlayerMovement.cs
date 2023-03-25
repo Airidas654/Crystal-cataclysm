@@ -190,11 +190,21 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.gravityScale = gravityScale;
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
+        Collider2D[] interactColliders = Physics2D.OverlapBoxAll(gameObject.transform.position,GetComponent<BoxCollider2D>().size,0,128);
+        
+        if (interactColliders != null && interactColliders.Length > 0)
         {
-            
+            GameUI.Instance.ShowPlayerText("E to interact");
         }
+        else
+        {
+            GameUI.Instance.HidePlayerText();
+        }
+        if (Input.GetKeyDown(KeyCode.E) && interactColliders != null && interactColliders.Length > 0)
+        {
+            interactColliders[0].gameObject.GetComponent<Interactable>().Interact();
+        }
+        
 
         if (flipped > 0)
         {
