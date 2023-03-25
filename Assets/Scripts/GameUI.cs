@@ -23,7 +23,17 @@ public class GameUI : MonoBehaviour
 
     [SerializeField]AnimationCurve messageAnimCurve;
 
+    [SerializeField] GameObject mainUi;
+
     string functionToCall;
+
+
+    public void StartGame()
+    {
+        mainUi.SetActive(false);
+
+    }
+
 
     enum animationType
     {
