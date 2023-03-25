@@ -291,11 +291,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (rb.velocity.x > 0)
                 {
-                    rb.velocity = new Vector2(Mathf.Max(0, rb.velocity.x - horizontalDrag * Time.deltaTime), rb.velocity.y);
+                    rb.velocity = new Vector2(Mathf.Max(0, Mathf.Max(rb.velocity.x - horizontalDrag * Time.deltaTime,0)), rb.velocity.y);
                 }
                 else
                 {
-                    rb.velocity = new Vector2(Mathf.Min(0, rb.velocity.x + horizontalDrag * Time.deltaTime), rb.velocity.y);
+                    rb.velocity = new Vector2(Mathf.Min(0, Mathf.Min(rb.velocity.x + horizontalDrag * Time.deltaTime, 0)), rb.velocity.y);
                 }
             }
             else
@@ -328,6 +328,10 @@ public class PlayerMovement : MonoBehaviour
                 //Debug.Log("pavyko");
                 isJumping = false;
             }
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, 0);
         }
 
         if (enableBetterJump && !onLadder)
