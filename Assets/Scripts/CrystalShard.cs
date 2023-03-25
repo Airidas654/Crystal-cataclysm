@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrystalShard : Interactable
+public class CrystalShard : MonoBehaviour
 {
-    public override void Interact()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (GameManager.Instance.currentUpgrade < GameManager.Instance.UpgradeFunctions.Count)
+        if (collision.transform.tag == "Player")
         {
-            GameManager.Instance.Invoke(GameManager.Instance.UpgradeFunctions[GameManager.Instance.currentUpgrade], 0);
-            GameManager.Instance.currentUpgrade++;
+            if (GameManager.Instance.currentUpgrade < GameManager.Instance.UpgradeFunctions.Count)
+            {
+                GameManager.Instance.Invoke(GameManager.Instance.UpgradeFunctions[GameManager.Instance.currentUpgrade], 0);
+                GameManager.Instance.currentUpgrade++;
+            }
+            Destroy(gameObject);
         }
     }
 }
