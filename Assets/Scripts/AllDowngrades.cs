@@ -36,9 +36,12 @@ public class AllDowngrades : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        foreach(Transform enemy in GameObject.Find("NeedToBeSpawned").transform)
+        if (GameObject.Find("NeedToBeSpawned") != null)
         {
-            enemy.gameObject.SetActive(true);
+            foreach (Transform enemy in GameObject.Find("NeedToBeSpawned").transform)
+            {
+                enemy.gameObject.SetActive(true);
+            }
         }
     }
 
