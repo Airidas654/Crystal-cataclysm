@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,11 +7,14 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [NonSerialized] public int currentUpgrade;
+
+    public List<string> UpgradeFunctions;
 
     [SerializeField] float DeathTime;
     [SerializeField] Image BlackPanel;
     [SerializeField] AnimationCurve DeathCurve;
-    [System.NonSerialized] public bool playerDead;
+    [NonSerialized] public bool playerDead;
     private bool transitionStage;
     private float time;
 
@@ -20,6 +24,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             playerDead = false;
+            currentUpgrade = 0;
         }
     }
 
