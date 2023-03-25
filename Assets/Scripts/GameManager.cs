@@ -3,18 +3,25 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+[System.Serializable] public struct Downgrade
+{
+    public string Message;
+    public string FunctionToCall;
+}
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [NonSerialized] public int currentUpgrade;
 
-    public List<string> UpgradeFunctions;
+    public List<Downgrade> UpgradeFunctions;
 
     [SerializeField] float DeathTime;
     [SerializeField] Image BlackPanel;
     [SerializeField] AnimationCurve DeathCurve;
-    [NonSerialized] public bool playerDead;
+    [NonSerialized] public bool playerDead,waitingToReload;
     private bool transitionStage;
     private float time;
     [System.NonSerialized] public bool CanReset = true;
@@ -26,6 +33,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             playerDead = false;
             currentUpgrade = 0;
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
         }
     }
 
@@ -37,15 +45,40 @@ public class GameManager : MonoBehaviour
             time = 0;
             transitionStage = false;
             BlackPanel.gameObject.SetActive(true);
+            waitingToReload = false;
         }
+    }
+
+    public void ApplyAllOldUpgrades()
+    {
+        for(int i = 0;i < currentUpgrade; i++)
+        {
+            AllDowngrades.Instance.Invoke(UpgradeFunctions[i].FunctionToCall, 0);
+        }
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (playerDead)
+        {
+            if(GameObject.Find("Shard") != null)
+            {
+                currentUpgrade--;
+            }
+            ApplyAllOldUpgrades();
+            Time.timeScale = 1;
+            waitingToReload = false;
+            transitionStage = true;
+        }
+
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R) && CanReset && !playerDead) {
+        if(Input.GetKeyDown(KeyCode.R) && CanReset && !playerDead && !GameUI.Instance.InDialog) {
             PlayerDeath();
         }
-        if (playerDead)
+        if (playerDead && !waitingToReload)
         {
             if (!transitionStage)
             {
@@ -53,8 +86,10 @@ public class GameManager : MonoBehaviour
                 BlackPanel.color = new Color(BlackPanel.color.r, BlackPanel.color.g, BlackPanel.color.b, Mathf.Lerp(0, 1, DeathCurve.Evaluate(time / DeathTime)));
                 if (time == DeathTime)
                 {
-                    transitionStage = true;
+                    
+                    waitingToReload = true;
                     UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+                    
                 }
             }
             else
