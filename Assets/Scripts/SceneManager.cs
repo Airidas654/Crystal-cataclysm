@@ -17,7 +17,8 @@ public class SceneManager : MonoBehaviour
     [SerializeField] List<NewSceneData> allScenes;
     [SerializeField] RectTransform BlankObject;
     [SerializeField] AnimationCurve SpeedCurve, cameraCurve;
-    private bool loadingScene, transitioning, transitioning2;
+    private bool  transitioning, transitioning2;
+    public bool loadingScene;
     private float time;
     Vector2 newBlankPos, newCameraPos;
     string newSceneName;
