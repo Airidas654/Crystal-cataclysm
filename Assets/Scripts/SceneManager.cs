@@ -4,10 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[System.Serializable]
+public struct NewSceneData
+{
+    public Vector2 goingDirection;
+    public string sceneName;
+}
+
 public class SceneManager : MonoBehaviour
 {
     private int currentLevel;
-
+    [SerializeField] List<NewSceneData> allScenes;
     [SerializeField] RectTransform BlankObject;
     [SerializeField] AnimationCurve SpeedCurve, cameraCurve;
     private bool loadingScene, transitioning, transitioning2;
@@ -24,6 +31,7 @@ public class SceneManager : MonoBehaviour
             transitioning = false;
             transitioning2 = false;
             loadingScene = false;
+            currentLevel = 0;
             DontDestroyOnLoad(gameObject);
             UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -43,18 +51,19 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void StartNextScene(Vector2 direction, string sceneName)
+    public void StartNextScene()
     {
-        if (!loadingScene && !transitioning && !transitioning2)
+        if (!loadingScene && currentLevel < allScenes.Count)
         {
-            newBlankPos = new Vector2(Screen.width * direction.x, Screen.height * direction.y);
+            newBlankPos = new Vector2(Screen.width * allScenes[currentLevel].goingDirection.x, Screen.height * allScenes[currentLevel].goingDirection.y);
             newCameraPos = Camera.main.ScreenToWorldPoint(new Vector2(newBlankPos.x + Screen.width / 2, newBlankPos.y + Screen.height / 2));
             BlankObject.localPosition = newBlankPos;
             transitioning = true;
             loadingScene = true;
             time = 0;
-            newSceneName = sceneName;
+            newSceneName = allScenes[currentLevel].sceneName;
             BlankObject.gameObject.SetActive(true);
+            currentLevel++;
         }
 
     }
@@ -78,8 +87,8 @@ public class SceneManager : MonoBehaviour
         }
         else if (transitioning2)
         {
-            Vector2 pos = Vector2.Lerp(Vector2.zero, -newBlankPos, SpeedCurve.Evaluate(time));
-            Vector2 newCameraTempPos = Vector2.Lerp(-newCameraPos, Vector2.zero, cameraCurve.Evaluate(time));
+            Vector2 pos = Vector2.Lerp(Vector2.zero, -newBlankPos, 1 - SpeedCurve.Evaluate(1 - time));
+            Vector2 newCameraTempPos = Vector2.Lerp(-newCameraPos, Vector2.zero, 1 - cameraCurve.Evaluate(1 - time));
             Camera.main.transform.position = new Vector3(newCameraTempPos.x, newCameraTempPos.y, Camera.main.transform.position.z);
             BlankObject.localPosition = pos;
             time += Time.unscaledDeltaTime;

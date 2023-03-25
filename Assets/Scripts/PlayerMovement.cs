@@ -193,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            SceneManager.Instance.StartNextScene(Vector2.right,"Armando2");
+            
         }
 
         if (flipped > 0)
