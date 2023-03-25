@@ -60,6 +60,8 @@ MonoBehaviour:
     sceneName: 6
   - goingDirection: {x: 0, y: 1}
     sceneName: 7
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 8
   BlankObject: {fileID: 0}
   SpeedCurve:
     serializedVersion: 2
@@ -203,4 +205,11 @@ MonoBehaviour:
     pitch: 1
     pitchRandomness: 0
     loop: 0
+    audioSource: {fileID: 0}
+  - name: Music
+    clip: {fileID: 8300000, guid: 544a7b52ee20d014d9fbe2e4fd543156, type: 3}
+    volume: 0.2
+    pitch: 1
+    pitchRandomness: 0
+    loop: 1
     audioSource: {fileID: 0}
