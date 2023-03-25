@@ -47,9 +47,9 @@ public class SceneManager : MonoBehaviour
         {
             transitioning2 = true;
             time = 0;
-            Camera.main.transform.position = new Vector3(-newCameraPos.x,-newCameraPos.y, Camera.main.transform.position.z);
+            Camera.main.transform.position = new Vector3(-newCameraPos.x, -newCameraPos.y, Camera.main.transform.position.z);
         }
-        
+
     }
 
     public void StartNextScene()
@@ -63,6 +63,7 @@ public class SceneManager : MonoBehaviour
             loadingScene = true;
             time = 0;
             newSceneName = allScenes[currentLevel].sceneName;
+            BlankObject.GetComponent<Image>().color = new Color(BlankObject.GetComponent<Image>().color.r, BlankObject.GetComponent<Image>().color.g, BlankObject.GetComponent<Image>().color.b, 1);
             BlankObject.gameObject.SetActive(true);
             currentLevel++;
             PlayerMovement.playerObject.GetComponent<PlayerMovement>().canMove = false;
@@ -77,7 +78,7 @@ public class SceneManager : MonoBehaviour
         if (transitioning)
         {
             Vector2 pos = Vector2.Lerp(newBlankPos, Vector2.zero, SpeedCurve.Evaluate(time));
-            Vector2 newCameraTempPos = Vector2.Lerp(new Vector2(0,2.5f), newCameraPos, cameraCurve.Evaluate(time));
+            Vector2 newCameraTempPos = Vector2.Lerp(new Vector2(0, 2.5f), newCameraPos, cameraCurve.Evaluate(time));
             Camera.main.transform.position = new Vector3(newCameraTempPos.x, newCameraTempPos.y, Camera.main.transform.position.z);
             BlankObject.localPosition = pos;
             time += Time.unscaledDeltaTime;
@@ -100,6 +101,7 @@ public class SceneManager : MonoBehaviour
                 transitioning2 = false;
                 loadingScene = false;
                 BlankObject.gameObject.SetActive(false);
+                BlankObject.localPosition = Vector2.zero;
                 PlayerMovement.playerObject.GetComponent<PlayerMovement>().canMove = true;
             }
         }
