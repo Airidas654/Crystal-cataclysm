@@ -1030,7 +1030,7 @@ MonoBehaviour:
       - 0.5
       - 0.5
   satVsSatCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
@@ -1171,7 +1171,7 @@ MonoBehaviour:
       - 0.5
       - 0.5
   lumVsSatCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2

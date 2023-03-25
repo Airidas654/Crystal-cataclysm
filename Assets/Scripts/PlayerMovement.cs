@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float jumpCooldownTimeInSeconds = 0.1f;
     [SerializeField] float climbSpeed = 5f;
+    [SerializeField] float ladderHorizontalSpeed = 1f;
 
     [Header("Movement assist settings")]
     [SerializeField] float CoyoteTimeInSeconds = 0.1f;
@@ -38,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     private float stunned = 0;
-    private float flipped = 0;
+    
     [HideInInspector] public bool canMove = true;
 
     private float jumpBufferTime = 0;
@@ -47,6 +48,10 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isJumping = false;
 
+    [Header("Ice physics")]
+    
+    [SerializeField] float icePagreitis = 0.2f;
+    [SerializeField] float iceDrag = 0.05f;
 
     public static GameObject playerObject;
     // Start is called before the first frame update
@@ -60,10 +65,6 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = gravityScale;
     }
 
-    public void FlipControls(float duration)
-    {
-        flipped = duration;
-    }
 
     bool touchingLadder = false;
     bool onLadder = false;
@@ -121,6 +122,12 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.DrawRay(new Vector2(transform.position.x, yPos), Vector2.right);
     }
+
+    [Header("Controls")]
+
+    public bool flipped = false;
+    public bool onIce = false;
+
 
     [HideInInspector]
     public bool grabbing = false;
@@ -206,9 +213,8 @@ public class PlayerMovement : MonoBehaviour
         }
         
 
-        if (flipped > 0)
+        if (flipped)
         {
-            flipped = Mathf.Max(0, flipped - Time.deltaTime);
             horizontalVal *= -1;
         }
 
@@ -216,17 +222,59 @@ public class PlayerMovement : MonoBehaviour
         if (canMove && stunned == 0)
         {
 
+            
             float playerVelocity = 0;
+
+            if (onIce)
+            {
+                playerVelocity = rb.velocity.x;
+            }
 
             if (horizontalVal < 0)
             {
                 transform.localScale = new Vector3(-startingSizeX, transform.localScale.y, transform.localScale.z); // flip sprite to the left
-                playerVelocity -= moveSpeed;
+
+                if (!onIce)
+                {
+                    playerVelocity -= moveSpeed;
+                }
+                else
+                {
+                    playerVelocity -= icePagreitis * Time.deltaTime;
+                    playerVelocity = Mathf.Max(Mathf.Min(moveSpeed, playerVelocity), -moveSpeed);
+                }
+
             }
             if (horizontalVal > 0)
             {
                 transform.localScale = new Vector3(startingSizeX, transform.localScale.y, transform.localScale.z); // flip sprite to the right
-                playerVelocity += moveSpeed;
+                if (!onIce)
+                {
+                    playerVelocity += moveSpeed;
+                }
+                else
+                {
+                    playerVelocity += icePagreitis * Time.deltaTime;
+                    playerVelocity = Mathf.Max(Mathf.Min(moveSpeed, playerVelocity), -moveSpeed);
+                }
+            }
+            
+            if (onIce)
+            {
+                playerVelocity -= iceDrag * Time.deltaTime * Mathf.Sign(playerVelocity);
+            }
+
+            if (onLadder)
+            {
+                playerVelocity = 0;
+                if (horizontalVal < 0)
+                {
+                    playerVelocity -= ladderHorizontalSpeed;
+                }
+                else if (horizontalVal > 0)
+                {
+                    playerVelocity += ladderHorizontalSpeed;
+                }
             }
 
             if (playerVelocity == 0)
