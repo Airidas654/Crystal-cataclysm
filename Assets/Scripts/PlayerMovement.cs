@@ -164,11 +164,11 @@ public class PlayerMovement : MonoBehaviour
 
         float jumpVal = Input.GetAxisRaw("Jump");
 
-        if (verticalVal != 0 && touchingLadder)
+        if (verticalVal != 0 && touchingLadder && playerObject.transform.position.y <= maxLadderHeight)
         {
             onLadder = true;
         }
-        if (onLadder && ((isGrounded && verticalVal < 0) || !touchingLadder))
+        if (onLadder && ((isGrounded && verticalVal < 0) || !touchingLadder) || playerObject.transform.position.y > maxLadderHeight+0.2f)
         {
             onLadder = false;
         }
