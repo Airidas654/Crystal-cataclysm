@@ -281,45 +281,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22c34fe7c4462b14e98c4e2e760fa4c5, type: 3}
---- !u!1 &926059869 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2556738190327321006, guid: 324e325bff32dd2428ea89c3c9c3e37b, type: 3}
-  m_PrefabInstance: {fileID: 1251915311}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &926059874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926059869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd5b0a0789dc7f543877104c4d8aecb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Walk
-    clip: {fileID: 0}
-    volume: 0.5
-    pitch: 1
-    pitchRandomness: 0
-    loop: 0
-    audioSource: {fileID: 0}
-  - name: Jump
-    clip: {fileID: 8300000, guid: 712524605b0b7474ea7fd6efd901a46b, type: 3}
-    volume: 0.5
-    pitch: 1
-    pitchRandomness: 0
-    loop: 0
-    audioSource: {fileID: 0}
-  - name: Death
-    clip: {fileID: 8300000, guid: 97ceb8f3051b78f4b983f116fca8d384, type: 3}
-    volume: 0.5
-    pitch: 1
-    pitchRandomness: 0
-    loop: 0
-    audioSource: {fileID: 0}
 --- !u!1 &969175076
 GameObject:
   m_ObjectHideFlags: 0

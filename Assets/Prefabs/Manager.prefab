@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2556738190327320995}
   - component: {fileID: 2556738190327321004}
   - component: {fileID: 2556738190327321005}
+  - component: {fileID: 926059874}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -109,7 +110,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UpgradeFunctions:
-  - Message: Your view is now flipped
+  - Message: The enemies started spawning from the power of a crystal shard
+    FunctionToCall: SpawnEnemies
+  - Message: Your feet is now slipery
+    FunctionToCall: SliperyGround
+  - Message: Suddenly you can run faster
+    FunctionToCall: FasterSpeed
+  - Message: Now your jumping is lower
+    FunctionToCall: SmallerJump
+  - Message: Your view is now upside-down
     FunctionToCall: FlipCamera
   DeathTime: 0.5
   BlackPanel: {fileID: 0}
@@ -149,3 +158,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45722f1491dff14d9372474a322c3c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &926059874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2556738190327321006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd5b0a0789dc7f543877104c4d8aecb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Walk
+    clip: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    pitchRandomness: 0
+    loop: 0
+    audioSource: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 712524605b0b7474ea7fd6efd901a46b, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitchRandomness: 0
+    loop: 0
+    audioSource: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: 97ceb8f3051b78f4b983f116fca8d384, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitchRandomness: 0
+    loop: 0
+    audioSource: {fileID: 0}

@@ -34,4 +34,12 @@ public class AllDowngrades : MonoBehaviour
         PlayerMovement.playerObject.GetComponent<PlayerMovement>().onIce = true;
     }
 
+    public void SpawnEnemies()
+    {
+        foreach(Transform enemy in GameObject.Find("NeedToBeSpawned").transform)
+        {
+            enemy.gameObject.SetActive(true);
+        }
+    }
+
 }
