@@ -55,10 +55,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float iceDrag = 0.05f;
 
     public static GameObject playerObject;
+    private void Awake()
+    {
+        playerObject = gameObject;
+    }
     // Start is called before the first frame update
     void Start()
     {
-        playerObject = gameObject;
+        
         rb = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
