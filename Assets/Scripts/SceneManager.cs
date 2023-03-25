@@ -77,7 +77,7 @@ public class SceneManager : MonoBehaviour
         if (transitioning)
         {
             Vector2 pos = Vector2.Lerp(newBlankPos, Vector2.zero, SpeedCurve.Evaluate(time));
-            Vector2 newCameraTempPos = Vector2.Lerp(Vector2.zero, newCameraPos, cameraCurve.Evaluate(time));
+            Vector2 newCameraTempPos = Vector2.Lerp(new Vector2(0,2.5f), newCameraPos, cameraCurve.Evaluate(time));
             Camera.main.transform.position = new Vector3(newCameraTempPos.x, newCameraTempPos.y, Camera.main.transform.position.z);
             BlankObject.localPosition = pos;
             time += Time.unscaledDeltaTime;
@@ -91,7 +91,7 @@ public class SceneManager : MonoBehaviour
         else if (transitioning2)
         {
             Vector2 pos = Vector2.Lerp(Vector2.zero, -newBlankPos, 1 - SpeedCurve.Evaluate(1 - time));
-            Vector2 newCameraTempPos = Vector2.Lerp(-newCameraPos, Vector2.zero, 1 - cameraCurve.Evaluate(1 - time));
+            Vector2 newCameraTempPos = Vector2.Lerp(-newCameraPos, new Vector2(0, 2.5f), 1 - cameraCurve.Evaluate(1 - time));
             Camera.main.transform.position = new Vector3(newCameraTempPos.x, newCameraTempPos.y, Camera.main.transform.position.z);
             BlankObject.localPosition = pos;
             time += Time.unscaledDeltaTime;

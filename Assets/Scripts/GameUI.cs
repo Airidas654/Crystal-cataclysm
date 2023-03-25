@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
@@ -29,7 +30,7 @@ public class GameUI : MonoBehaviour
 
     string functionToCall;
 
-    bool startPressed, inStart = true;
+    bool startPressed,loading, inStart = true;
     [SerializeField] Image BlackScreen;
     [SerializeField] float maxCameraSpeed;
     [SerializeField] AnimationCurve blackCurve;
@@ -100,7 +101,19 @@ public class GameUI : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
         playerTextText = playerTextRect.GetComponent<TMPro.TextMeshProUGUI>();
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (inStart && startPressed)
+        {
+            loading = true;
+            inStart = false;
+            startPressed = false;
+            time = TransitionSpeed;
+        }
     }
 
     bool waitingForInput = false;
@@ -110,14 +123,28 @@ public class GameUI : MonoBehaviour
 
         if (startPressed)
         {
-            time += Time.unscaledDeltaTime;
-            BlackScreen.color = new Color(BlackScreen.color.r, BlackScreen.color.g, BlackScreen.color.b, Mathf.Lerp(0, 1, blackCurve.Evaluate(time / TransitionSpeed)));
-            float newPos = Mathf.Lerp(0, maxCameraSpeed, cameraMoveCurve.Evaluate(time / TransitionSpeed));
-            Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - newPos * Time.unscaledDeltaTime, Camera.main.transform.position.z);
-            if (time >= TransitionSpeed)
+            if (time < TransitionSpeed)
             {
-                startPressed = false;
-                UnityEngine.SceneManagement.SceneManager.LoadScene("1");
+                time += Time.unscaledDeltaTime;
+                BlackScreen.color = new Color(BlackScreen.color.r, BlackScreen.color.g, BlackScreen.color.b, Mathf.Lerp(0, 1, blackCurve.Evaluate(time / TransitionSpeed)));
+                float newPos = Mathf.Lerp(0, maxCameraSpeed, cameraMoveCurve.Evaluate(time / TransitionSpeed));
+                Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - newPos * Time.unscaledDeltaTime, Camera.main.transform.position.z);
+                if (time >= TransitionSpeed)
+                {
+
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("1");
+
+                }
+            }
+        }
+        if (loading)
+        {
+            time -= Time.unscaledDeltaTime;
+            BlackScreen.color = new Color(BlackScreen.color.r, BlackScreen.color.g, BlackScreen.color.b, Mathf.Lerp(0, 1, blackCurve.Evaluate(time / TransitionSpeed)));
+            if(time <= 0)
+            {
+                loading = false;
+                BlackScreen.gameObject.SetActive(false);
             }
         }
 
@@ -190,6 +217,6 @@ public class GameUI : MonoBehaviour
                 AllDowngrades.Instance.Invoke(functionToCall, 0);
             }
         }
-        
+
     }
 }
