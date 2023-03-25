@@ -52,4 +52,12 @@ public class Enemy : MonoBehaviour
         }
         gameObject.transform.position = Vector2.Lerp(defaultPos, (Vector2)defaultPos + secondPosition, curve.Evaluate(time / period));
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            GameManager.Instance.PlayerDeath();
+        }
+    }
 }
