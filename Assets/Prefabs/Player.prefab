@@ -119,7 +119,7 @@ MonoBehaviour:
   icePagreitis: 10
   iceDrag: 2
   flipped: 0
-  onIce: 1
+  onIce: 0
   grabbing: 0
 --- !u!50 &989567572989252594
 Rigidbody2D:
