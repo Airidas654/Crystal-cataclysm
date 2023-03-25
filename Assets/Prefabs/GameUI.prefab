@@ -544,7 +544,7 @@ MonoBehaviour:
   messageText: {fileID: 3237498320176264922}
   messageUITime: 0.7
   playerTextTime: 0.3
-  playerTextOffset: {x: 0.33, y: 0.9}
+  playerTextOffset: {x: 0, y: 0.9}
   showPlayerText: 0
   messageAnimCurve:
     serializedVersion: 2
@@ -570,3 +570,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  mainUi: {fileID: 0}

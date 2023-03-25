@@ -26,7 +26,7 @@ public class Platform : MonoBehaviour
             collide = true;
             platformCollider.enabled = true;
         }
-        if (collide && platformTop > playerBottomPos)
+        if (collide && (platformTop > playerBottomPos || playerCollider.GetComponent<PlayerMovement>().onLadder))
         {
             collide = false;
             platformCollider.enabled = false;

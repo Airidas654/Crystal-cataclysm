@@ -72,7 +72,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     bool touchingLadder = false;
-    bool onLadder = false;
+    [HideInInspector]
+    public bool onLadder = false;
 
     List<GameObject> touchedLadders = new List<GameObject>();
     float maxLadderHeight = 0;
@@ -176,14 +177,18 @@ public class PlayerMovement : MonoBehaviour
 
         float jumpVal = Input.GetAxisRaw("Jump");
 
-        if (verticalVal != 0 && touchingLadder && playerObject.transform.position.y <= maxLadderHeight)
-        {
-            onLadder = true;
-        }
-        if (onLadder && ((isGrounded && verticalVal < 0) || !touchingLadder) || playerObject.transform.position.y > maxLadderHeight+0.2f)
+        if (onLadder && ((isGrounded && verticalVal < 0) || !touchingLadder) || playerObject.transform.position.y > maxLadderHeight + 0.2f)
         {
             onLadder = false;
         }
+        if (verticalVal != 0 && touchingLadder && playerObject.transform.position.y <= maxLadderHeight)
+        {
+            onLadder = true;
+            //Debug.Log("virs");
+        }
+        
+        
+        
 
         if (onLadder)
         {
