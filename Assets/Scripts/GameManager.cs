@@ -1,11 +1,12 @@
-using System.Collections;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-[System.Serializable] public struct Downgrade
+[System.Serializable]
+public struct Downgrade
 {
     public string Message;
     public string FunctionToCall;
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float DeathTime;
     [SerializeField] Image BlackPanel;
     [SerializeField] AnimationCurve DeathCurve;
-    [NonSerialized] public bool playerDead,waitingToReload;
+    [NonSerialized] public bool playerDead, waitingToReload;
     private bool transitionStage;
     private float time;
     [System.NonSerialized] public bool CanReset = false;
@@ -41,8 +42,10 @@ public class GameManager : MonoBehaviour
     {
         if (!playerDead)
         {
+            SoundManager.Instance.Play("Death");
             playerDead = true;
             time = 0;
+            Time.timeScale = 0;
             transitionStage = false;
             BlackPanel.gameObject.SetActive(true);
             waitingToReload = false;
@@ -51,22 +54,23 @@ public class GameManager : MonoBehaviour
 
     public void ApplyAllOldUpgrades()
     {
-        for(int i = 0;i < currentUpgrade; i++)
+        for (int i = 0; i < currentUpgrade; i++)
         {
             AllDowngrades.Instance.Invoke(UpgradeFunctions[i].FunctionToCall, 0);
         }
     }
 
+
+    bool shardPaimtas;
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (playerDead)
         {
-            if(GameObject.Find("Shard") != null)
+            if (GameObject.Find("Shard") != null && shardPaimtas)
             {
                 currentUpgrade--;
             }
             ApplyAllOldUpgrades();
-            Time.timeScale = 1;
             waitingToReload = false;
             transitionStage = true;
         }
@@ -75,7 +79,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R) && CanReset && !playerDead && !GameUI.Instance.InDialog) {
+        if (Input.GetKeyDown(KeyCode.R) && CanReset && !playerDead && !GameUI.Instance.InDialog)
+        {
             PlayerDeath();
         }
         if (playerDead && !waitingToReload)
@@ -86,10 +91,13 @@ public class GameManager : MonoBehaviour
                 BlackPanel.color = new Color(BlackPanel.color.r, BlackPanel.color.g, BlackPanel.color.b, Mathf.Lerp(0, 1, DeathCurve.Evaluate(time / DeathTime)));
                 if (time == DeathTime)
                 {
-                    
+
                     waitingToReload = true;
+
+                    shardPaimtas = (GameObject.Find("Shard") == null);
+
                     UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-                    
+
                 }
             }
             else
@@ -99,6 +107,7 @@ public class GameManager : MonoBehaviour
                 if (time == 0)
                 {
                     playerDead = false;
+                    Time.timeScale = 1;
                     BlackPanel.gameObject.SetActive(false);
                 }
             }

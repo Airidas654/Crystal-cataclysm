@@ -1,76 +1,194 @@
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UIElements;
+using UnityEngine.Audio;
+
+[System.Serializable]
+public class Sound
+{
+    public string name;
+    public AudioClip clip;
+
+    [Range(0, 1)]
+    public float volume = 1f;
+
+    [Range(-3, 3)]
+    public float pitch = 1f;
+
+    [Range(0, 0.5f)]
+    public float pitchRandomness = 0f;
+
+
+    public bool loop = false;
+
+    [HideInInspector]
+    public AudioSource audioSource;
+}
 
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager Instance;
+    [SerializeField]
+    List<Sound> sounds = new List<Sound>();
 
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioSource audioSourceOneShot;
-
-    private void Awake()
+    public static SoundManager Instance = null;
+    // public GameManager gameManag;
+    public void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
+        if (Instance != null)
         {
             Destroy(gameObject);
+            return;
         }
+        Instance = this;
 
-    }
-
-    public AudioSource PlaySound(AudioClip[] clip, Vector3 position, bool isLooping = false, float volume = 1)
-    {
-        return PlaySound(clip[Random.Range(0, clip.Length)], position, isLooping, volume);
-    }
-
-    public AudioSource PlaySound(AudioClip clip, Vector3 position, bool isLooping = false, float volume = 1)
-    {
-        AudioSource audio = Instantiate(audioSource, position, Quaternion.identity);
-        audio.name = "SoundObject";
-        audio.loop = isLooping;
-        audio.clip = clip;
-        audio.spatialBlend = 1f;
-        audio.dopplerLevel = 0f;
-        audio.volume = volume;
-        audio.Play();
-        if (!isLooping) Destroy(audio.gameObject, clip.length);
-
-        return audio;
-    }
-
-    public AudioSource PlaySound(AudioClip[] clip, Transform attachedTransform, bool isLooping = false, float volume = 1)
-    {
-        return PlaySound(clip[Random.Range(0, clip.Length)], attachedTransform, isLooping, volume);
-    }
-
-    public AudioSource PlaySound(AudioClip clip, Transform attachedTransform, bool isLooping = false, float volume = 1)
-    {
-        AudioSource audio = Instantiate(audioSource, attachedTransform);
-        audio.name = "SoundObject";
-        audio.loop = isLooping;
-        audio.clip = clip;
-        audio.spatialBlend = 1f;
-        audio.dopplerLevel = 0f;
-        audio.volume = volume;
-        audio.Play();
-        if (!isLooping) Destroy(audio.gameObject, clip.length);
-
-        return audio;
-    }
-
-    public void PlaySoundOneShot(AudioClip clip)
-    {
-        if (audioSourceOneShot == null)
+        foreach (Sound i in sounds)
         {
-            audioSourceOneShot = Camera.main.GetComponentInChildren<AudioSource>();
-        }
+            AudioSource source = gameObject.AddComponent<AudioSource>();
 
-        audioSourceOneShot.PlayOneShot(clip);
+            i.audioSource = source;
+            source.pitch = i.pitch;
+            source.loop = i.loop;
+            source.volume = i.volume;
+            source.clip = i.clip;
+            source.playOnAwake = false;
+        }
     }
+    public float randomNum(float nuo, float iki)
+    {
+        return Random.Range(nuo, iki);
+    }
+    public void Play(string name)
+    {
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (name == sounds[i].name)
+            {
+                //sounds[i].audioSource.mute = !GameManager.sound;
+                sounds[i].audioSource.pitch = sounds[i].pitch + randomNum(-sounds[i].pitchRandomness, sounds[i].pitchRandomness);
+                sounds[i].audioSource.Play();
+                return;
+            }
+        }
+        Debug.LogWarning("Audio: " + name + " not found!");
+    }
+
+    public void Stop(string name)
+    {
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (name == sounds[i].name)
+            {
+                sounds[i].audioSource.Stop();
+                //sounds[i].audioSource.st
+                return;
+            }
+        }
+        Debug.LogWarning("Audio: " + name + " not found!");
+    }
+    public void PlayOneShot(string name)
+    {
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (name == sounds[i].name)
+            {
+                //sounds[i].audioSource.mute = !GameManager.sound;
+                sounds[i].audioSource.pitch = sounds[i].pitch + randomNum(-sounds[i].pitchRandomness, sounds[i].pitchRandomness);
+                sounds[i].audioSource.PlayOneShot(sounds[i].clip);
+                return;
+            }
+        }
+        Debug.LogWarning("Audio: " + name + " not found!");
+    }
+
+    public void Play(int id)
+    {
+        sounds[id].audioSource.pitch = sounds[id].pitch + randomNum(-sounds[id].pitchRandomness, sounds[id].pitchRandomness);
+        sounds[id].audioSource.Play();
+        //Debug.Log("Paspaude");
+    }
+
+    public void Stop(int id)
+    {
+        sounds[id].audioSource.Stop();
+    }
+
+    public void PlayWithChangedPitch(string name, float addedPitch)
+    {
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (name == sounds[i].name)
+            {
+                //sounds[i].audioSource.mute = !GameManager.sound;
+                sounds[i].audioSource.pitch = sounds[i].pitch + randomNum(-sounds[i].pitchRandomness, sounds[i].pitchRandomness) + addedPitch;
+                sounds[i].audioSource.Play();
+                return;
+            }
+        }
+        Debug.LogWarning("Audio: " + name + " not found!");
+    }
+
+    public void ChangePitch(string name, float pitch)
+    {
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (name == sounds[i].name)
+            {
+                sounds[i].audioSource.pitch = pitch;
+                return;
+            }
+        }
+        Debug.LogWarning("Audio: " + name + " not found!");
+    }
+    public void ChangeVolume(string name, float volume)
+    {
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (name == sounds[i].name)
+            {
+                sounds[i].audioSource.volume = volume;
+                return;
+            }
+        }
+        Debug.LogWarning("Audio: " + name + " not found!");
+    }
+
+    public void ChangeLooping(string name, bool loop)
+    {
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (name == sounds[i].name)
+            {
+                sounds[i].audioSource.loop = loop;
+                return;
+            }
+        }
+        Debug.LogWarning("Audio: " + name + " not found!");
+    }
+
+    public float GetPitch(string name)
+    {
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (name == sounds[i].name)
+            {
+                return sounds[i].pitch;
+            }
+        }
+        Debug.LogWarning("Audio: " + name + " not found!");
+        return 0;
+    }
+
+    public float GetVolume(string name)
+    {
+        for (int i = 0; i < sounds.Count; i++)
+        {
+            if (name == sounds[i].name)
+            {
+                return sounds[i].volume;
+            }
+        }
+        Debug.LogWarning("Audio: " + name + " not found!");
+        return 0;
+    }
+
 }

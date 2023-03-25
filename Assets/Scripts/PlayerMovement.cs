@@ -318,7 +318,7 @@ public class PlayerMovement : MonoBehaviour
 
                     //SoundManager.Instance.PlaySoundOneShot(jump);
                     isJumping = true;
-
+                    SoundManager.Instance.Play("Jump");
                     jumpCooldown = jumpCooldownTimeInSeconds;
                     jumpBufferTime = 0;
                 }
