@@ -10,7 +10,7 @@ public class CrystalShard : MonoBehaviour
         {
             if (GameManager.Instance.currentUpgrade < GameManager.Instance.UpgradeFunctions.Count)
             {
-                GameUI.Instance.StartMessageAnim(GameManager.Instance.UpgradeFunctions[GameManager.Instance.currentUpgrade].Message, GameManager.Instance.UpgradeFunctions[GameManager.Instance.currentUpgrade].FunctionToCall);
+                GameUI.Instance.StartMessageAnim(GameManager.Instance.UpgradeFunctions[GameManager.Instance.currentUpgrade].Message, GameManager.Instance.UpgradeFunctions[GameManager.Instance.currentUpgrade].FunctionToCall,true);
                 
                
                 GameManager.Instance.currentUpgrade++;
