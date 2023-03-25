@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     BoxCollider2D mainCollider;
     Rigidbody2D rb;
+    [HideInInspector]
     public Animator animator;
 
     bool isGrounded;
@@ -337,8 +338,9 @@ public class PlayerMovement : MonoBehaviour
         //atsakingas uz animacija
         if (animator != null)
         {
-            animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-            animator.SetBool("isGrounded", isGrounded);
+            animator.SetBool("Moving", Mathf.Abs(rb.velocity.x) > Mathf.Epsilon || Mathf.Abs(rb.velocity.y) > Mathf.Epsilon);
+            animator.SetBool("Grounded", isGrounded);
+            animator.SetBool("On Ladders", onLadder);
         }
 
     }
