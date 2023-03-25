@@ -31,7 +31,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3237498320305435038}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -107,7 +107,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3237498320305435038}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -243,7 +243,7 @@ RectTransform:
   m_Children:
   - {fileID: 3237498320176264920}
   m_Father: {fileID: 3237498320305435038}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -455,9 +455,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3237498320105593925}
   - {fileID: 212470906}
   - {fileID: 177732208}
+  - {fileID: 3237498320105593925}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -544,7 +544,7 @@ MonoBehaviour:
   messageText: {fileID: 3237498320176264922}
   messageUITime: 0.7
   playerTextTime: 0.3
-  playerTextOffset: {x: 0, y: 0.9}
+  playerTextOffset: {x: 0.33, y: 0.9}
   showPlayerText: 0
   messageAnimCurve:
     serializedVersion: 2
@@ -571,3 +571,18 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   mainUi: {fileID: 0}
+  BlackScreen: {fileID: 0}
+  maxCameraSpeed: 0
+  blackCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  cameraMoveCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TransitionSpeed: 0

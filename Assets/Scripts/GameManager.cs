@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     [NonSerialized] public bool playerDead,waitingToReload;
     private bool transitionStage;
     private float time;
-    [System.NonSerialized] public bool CanReset = true;
+    [System.NonSerialized] public bool CanReset = false;
 
     private void Awake()
     {
