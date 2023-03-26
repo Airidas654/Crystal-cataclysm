@@ -565,6 +565,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2847973247380446418, guid: 13968aac0d1138142971814d63494d25, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6276053802332762929, guid: 13968aac0d1138142971814d63494d25, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -617,7 +621,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4658869890017245450, guid: 13968aac0d1138142971814d63494d25, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 13968aac0d1138142971814d63494d25, type: 3}
 --- !u!1001 &585573746
 PrefabInstance:
@@ -1095,7 +1100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 989567572989252607, guid: f06accb98c37fe34785bdf07835ef1d3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.2124248
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 989567572989252607, guid: f06accb98c37fe34785bdf07835ef1d3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1138,6 +1143,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2847973247380446418, guid: 13968aac0d1138142971814d63494d25, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6276053802332762929, guid: 13968aac0d1138142971814d63494d25, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1190,7 +1199,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4658869890017245450, guid: 13968aac0d1138142971814d63494d25, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 13968aac0d1138142971814d63494d25, type: 3}
 --- !u!1001 &959529315
 PrefabInstance:
@@ -1205,11 +1215,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5277340013084074792, guid: c5357411fab78e94cbc1dc409d963202, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.56
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5277340013084074792, guid: c5357411fab78e94cbc1dc409d963202, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.87
+      value: 6.89
       objectReference: {fileID: 0}
     - target: {fileID: 5277340013084074792, guid: c5357411fab78e94cbc1dc409d963202, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6345,6 +6355,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2847973247380446418, guid: 13968aac0d1138142971814d63494d25, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6276053802332762929, guid: 13968aac0d1138142971814d63494d25, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -6397,7 +6411,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4658869890017245450, guid: 13968aac0d1138142971814d63494d25, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 13968aac0d1138142971814d63494d25, type: 3}
 --- !u!1001 &1679480614
 PrefabInstance:
