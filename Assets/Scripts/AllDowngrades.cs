@@ -45,4 +45,9 @@ public class AllDowngrades : MonoBehaviour
         }
     }
 
+    public void AllReset()
+    {
+
+    }
+
 }
