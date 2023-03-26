@@ -42,4 +42,14 @@ public class EndingManager : MonoBehaviour
             blackScreen.color = new Color(0, 0, 0, 1-val);
         }
     }
+
+    public void Crack()
+    {
+        SoundManager.Instance.PlayOneShot("Crack");
+    }
+
+    public void Place()
+    {
+        SoundManager.Instance.PlayOneShot("Place");
+    }
 }
