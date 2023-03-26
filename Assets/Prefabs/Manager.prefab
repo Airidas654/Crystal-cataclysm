@@ -62,6 +62,8 @@ MonoBehaviour:
     sceneName: 7
   - goingDirection: {x: 0, y: 1}
     sceneName: 8
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 9
   BlankObject: {fileID: 0}
   SpeedCurve:
     serializedVersion: 2
@@ -111,6 +113,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  loadingScene: 0
 --- !u!114 &2556738190327321004
 MonoBehaviour:
   m_ObjectHideFlags: 0
