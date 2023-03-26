@@ -8210,18 +8210,6 @@ PrefabInstance:
       propertyPath: BlankObject
       value: 
       objectReference: {fileID: 1613345740}
-    - target: {fileID: 2556738190327320995, guid: 324e325bff32dd2428ea89c3c9c3e37b, type: 3}
-      propertyPath: allScenes.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2556738190327320995, guid: 324e325bff32dd2428ea89c3c9c3e37b, type: 3}
-      propertyPath: allScenes.Array.data[8].sceneName
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2556738190327320995, guid: 324e325bff32dd2428ea89c3c9c3e37b, type: 3}
-      propertyPath: allScenes.Array.data[8].goingDirection.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2556738190327321004, guid: 324e325bff32dd2428ea89c3c9c3e37b, type: 3}
       propertyPath: BlackPanel
       value: 
