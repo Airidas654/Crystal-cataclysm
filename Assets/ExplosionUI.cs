@@ -44,4 +44,13 @@ public class ExplosionUI : MonoBehaviour
             text.color = new Color(1, 1, 1, val);
         }
     }
+
+    public void Crack()
+    {
+        SoundManager.Instance.Play("Crack");
+    }
+    public void Explosion()
+    {
+        SoundManager.Instance.Play("Explosion");
+    }
 }

@@ -64,6 +64,14 @@ MonoBehaviour:
     sceneName: 8
   - goingDirection: {x: 0, y: 1}
     sceneName: 9
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 10
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 11
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 12
+  - goingDirection: {x: 0, y: 1}
+    sceneName: 13
   BlankObject: {fileID: 0}
   SpeedCurve:
     serializedVersion: 2
