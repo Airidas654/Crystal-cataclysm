@@ -217,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GameUI.Instance.HidePlayerText();
         }
-        if (Input.GetKeyDown(KeyCode.E) && interactColliders != null && interactColliders.Length > 0)
+        if (Input.GetKeyDown(KeyCode.E) && interactColliders != null && interactColliders.Length > 0 && !GameManager.Instance.playerDead && !GameUI.Instance.InDialog)
         {
             interactColliders[0].gameObject.GetComponent<Interactable>().Interact();
         }
