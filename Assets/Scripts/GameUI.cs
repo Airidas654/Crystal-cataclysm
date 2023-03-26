@@ -114,6 +114,7 @@ public class GameUI : MonoBehaviour
             inStart = false;
             startPressed = false;
             time = TransitionSpeed;
+            SoundManager.Instance.Play("Music");
         }
     }
 

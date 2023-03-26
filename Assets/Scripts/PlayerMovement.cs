@@ -142,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         // coyote time and jump buffer time update
         if (coyoteTime > 0) coyoteTime -= Time.deltaTime;
         if (jumpBufferTime > 0) jumpBufferTime -= Time.deltaTime;
@@ -154,9 +154,10 @@ public class PlayerMovement : MonoBehaviour
         Bounds colliderBounds = mainCollider.bounds;
         Vector3 colliderSize = new Vector3(mainCollider.size.x * 0.9f * Mathf.Abs(transform.localScale.x), 0.1f, 1);
         Vector3 groundCheckPos = colliderBounds.min + new Vector3(colliderBounds.size.x * 0.5f, colliderSize.y * 0.45f, 0);
+        
         // Check if player is grounded
         Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheckPos, colliderSize, 0, 64);
-
+        
         //Check if any of the overlapping colliders are not player collider, if so, set isGrounded to true
         isGrounded = false;
         if (colliders.Length > 0 && rb.velocity.y < 0.05f)
@@ -166,7 +167,6 @@ public class PlayerMovement : MonoBehaviour
 
 
         }
-
         if (stunned > 0)
         {
             stunned = Mathf.Max(0, stunned - Time.deltaTime);
@@ -217,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GameUI.Instance.HidePlayerText();
         }
-        if (Input.GetKeyDown(KeyCode.E) && interactColliders != null && interactColliders.Length > 0)
+        if (Input.GetKeyDown(KeyCode.E) && interactColliders != null && interactColliders.Length > 0 && !GameManager.Instance.playerDead && !GameUI.Instance.InDialog)
         {
             interactColliders[0].gameObject.GetComponent<Interactable>().Interact();
         }

@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && CanReset && !playerDead && !GameUI.Instance.InDialog)
+        if (Input.GetKeyDown(KeyCode.R) && CanReset && !playerDead && !GameUI.Instance.InDialog && !SceneManager.Instance.loadingScene)
         {
             PlayerDeath();
         }

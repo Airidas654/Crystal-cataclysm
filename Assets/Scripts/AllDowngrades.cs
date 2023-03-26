@@ -15,12 +15,12 @@ public class AllDowngrades : MonoBehaviour
     }
     public void FasterSpeed()
     {
-        PlayerMovement.playerObject.GetComponent<PlayerMovement>().moveSpeed += 5; // Change later
+        PlayerMovement.playerObject.GetComponent<PlayerMovement>().moveSpeed = 12;
     }
 
     public void SmallerJump()
     {
-        PlayerMovement.playerObject.GetComponent<PlayerMovement>().jumpStrength -= 5; // Change later
+        PlayerMovement.playerObject.GetComponent<PlayerMovement>().jumpStrength = 11;
     }
 
     public void FlipCamera()
@@ -43,6 +43,11 @@ public class AllDowngrades : MonoBehaviour
                 enemy.gameObject.SetActive(true);
             }
         }
+    }
+
+    public void AllReset()
+    {
+
     }
 
 }
