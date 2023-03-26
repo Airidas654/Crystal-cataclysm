@@ -217,10 +217,31 @@ MonoBehaviour:
     pitchRandomness: 0
     loop: 0
     audioSource: {fileID: 0}
+  - name: Explosion
+    clip: {fileID: 8300000, guid: 4ba9d3ac24e8d694798a341b1a8efd7d, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitchRandomness: 0
+    loop: 0
+    audioSource: {fileID: 0}
+  - name: Crack
+    clip: {fileID: 8300000, guid: 9981b06a7e8a4824e956c8744a587231, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitchRandomness: 0
+    loop: 0
+    audioSource: {fileID: 0}
   - name: Music
     clip: {fileID: 8300000, guid: 544a7b52ee20d014d9fbe2e4fd543156, type: 3}
     volume: 0.2
     pitch: 1
     pitchRandomness: 0
     loop: 1
+    audioSource: {fileID: 0}
+  - name: Place
+    clip: {fileID: 8300000, guid: 8542429722022974a9cf30546a7cb903, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitchRandomness: 0
+    loop: 0
     audioSource: {fileID: 0}
