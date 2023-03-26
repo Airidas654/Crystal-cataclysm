@@ -17,7 +17,6 @@ public class EndDoor : Interactable
         newBlackScreen = GameUI.Instance.transform.GetChild(1).GetComponent<Image>();
         newBlackScreen.color = new Color(newBlackScreen.color.r, newBlackScreen.color.g, newBlackScreen.color.b, 0);
         newBlackScreen.gameObject.SetActive(true);
-        GameUI.Instance.HidePlayerText();
         SoundManager.Instance.Stop("Music");
     }
 
@@ -31,6 +30,7 @@ public class EndDoor : Interactable
             if (time >= transitionTime)
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Last");
+                GameUI.Instance.HidePlayerText();
                 transitioning = false;
             }
         }

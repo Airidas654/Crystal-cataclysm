@@ -46,6 +46,7 @@ public class SceneManager : MonoBehaviour
     {
         if (loadingScene)
         {
+            GameManager.Instance.ApplyAllOldUpgrades();
             transitioning2 = true;
             time = 0;
             Camera.main.transform.position = new Vector3(-newCameraPos.x, -newCameraPos.y, Camera.main.transform.position.z);
@@ -87,7 +88,6 @@ public class SceneManager : MonoBehaviour
             {
                 transitioning = false;
                 UnityEngine.SceneManagement.SceneManager.LoadScene(newSceneName);
-                GameManager.Instance.ApplyAllOldUpgrades();
             }
         }
         else if (transitioning2)
