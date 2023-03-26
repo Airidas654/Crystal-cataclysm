@@ -59,7 +59,6 @@ public class SceneManager : MonoBehaviour
         {
             newBlankPos = new Vector2(Screen.width * allScenes[currentLevel].goingDirection.x, Screen.height * allScenes[currentLevel].goingDirection.y);
             newCameraPos = Camera.main.ScreenToWorldPoint(new Vector2(newBlankPos.x + Screen.width / 2, newBlankPos.y + Screen.height / 2));
-            Debug.Log(newCameraPos);
             BlankObject.localPosition = newBlankPos;
             transitioning = true;
             loadingScene = true;
