@@ -11,8 +11,14 @@ public struct NewSceneData
     public string sceneName;
 }
 
+
+
 public class SceneManager : MonoBehaviour
 {
+
+
+    Vector2 screen;
+
     private int currentLevel;
     [SerializeField] List<NewSceneData> allScenes;
     [SerializeField] RectTransform BlankObject;
@@ -58,8 +64,9 @@ public class SceneManager : MonoBehaviour
     {
         if (!loadingScene && currentLevel < allScenes.Count)
         {
-            newBlankPos = new Vector2(Screen.width * allScenes[currentLevel].goingDirection.x, Screen.height * allScenes[currentLevel].goingDirection.y);
-            newCameraPos = Camera.main.ScreenToWorldPoint(new Vector2(newBlankPos.x + Screen.width / 2, newBlankPos.y + Screen.height / 2));
+            screen = GameUI.Instance.gameObject.GetComponent<RectTransform>().sizeDelta;
+            newBlankPos = new Vector2(screen.x * allScenes[currentLevel].goingDirection.x, screen.y * allScenes[currentLevel].goingDirection.y);
+            newCameraPos = new Vector2(allScenes[currentLevel].goingDirection.x * 2f * Camera.main.orthographicSize * Camera.main.aspect , 2.5f + allScenes[currentLevel].goingDirection.y * 2f * Camera.main.orthographicSize);
             BlankObject.localPosition = newBlankPos;
             transitioning = true;
             loadingScene = true;
