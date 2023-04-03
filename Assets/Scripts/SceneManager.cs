@@ -67,6 +67,10 @@ public class SceneManager : MonoBehaviour
             screen = GameUI.Instance.gameObject.GetComponent<RectTransform>().sizeDelta;
             newBlankPos = new Vector2(screen.x * allScenes[currentLevel].goingDirection.x, screen.y * allScenes[currentLevel].goingDirection.y);
             newCameraPos = new Vector2(allScenes[currentLevel].goingDirection.x * 2f * Camera.main.orthographicSize * Camera.main.aspect , 2.5f + allScenes[currentLevel].goingDirection.y * 2f * Camera.main.orthographicSize);
+            if(Camera.main.transform.rotation.z != 0)
+            {
+                newBlankPos *= -1;
+            }
             BlankObject.localPosition = newBlankPos;
             transitioning = true;
             loadingScene = true;
